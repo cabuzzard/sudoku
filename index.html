@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>9 Sudoku Rows</h2>
+<button style="width:200px; height:70px; font-size:20px;font-weight:bold" onclick="generate()">Generate Rows</button>
+<p id="demo"></p>
+
+<script>
+function generate()
+{
+
+   let text = "";
+   let text2 = "";
+   let columns = 0;
+   while (columns < 9) 
+   {
+     //create a random number of entries per row 
+     var numberofentries = Math.floor((Math.random() * 6) + 1);
+     //console.log("the row is" + columns);
+     //console.log("number of entries is" + numberofentries);
+     //console.log("----------------------------------------");
+     
+     //create a random sequence of numbers per items in numberof entries without dupes
+       
+     //create entries array to collect the entries
+     var entries =[];
+     var column = [0,0,0,0,0,0,0,0,0];
+   
+     //loop through number of entries and generate the random sequence
+     let i=1;
+     while(i<=numberofentries)
+       {
+         //generate the random number
+         var randnum = Math.floor((Math.random() * 9) + 1);
+         //console.log("the random number is"+ randnum);
+       
+         //push it to an array of entries   ude do while to eliminate dupes
+         if(entries.includes(randnum)===false)
+         {entries.push(randnum);    
+         }
+         else
+         {
+           do
+           {
+             //console.log("the old random number is"+ randnum);
+             randnum = Math.floor((Math.random() * 9) + 1);
+             //console.log("the new random number is"+ randnum);
+           }
+           while(entries.includes(randnum)!=false);
+           
+           entries.push(randnum);
+         }
+          //console.log("--------------------------------------");
+         //console.log("--------------------------------------");           
+         i++;
+       }
+       console.log("entries array is" + entries); 
+       
+       //create new loop here to enter the entries array into the columnn array at random posiitons
+       //ALMOST DONE JUST REMOVE DUPES HERE
+       entries.forEach(addtocolumn);
+       
+       function addtocolumn(item, index)
+         {var position = Math.floor((Math.random() * 9) + 1);   
+             if(column[position-1]<1)
+             {
+               column.splice(position-1,1,item);
+               //console.log("array position is" + position);
+               //console.log("input is" + item);
+               //console.log("was zero");
+               //console.log("column array is" + column);
+               //console.log("---------------");
+             }else
+             {
+               //while(column[position-1]>=1)
+               //{
+               //  //console.log("bad array position is" + position);
+               position = Math.floor((Math.random() * 9) + 1);
+               //}
+               if(column[position-1]<1)
+               {
+                 column.splice(position-1,1,item);
+               //  //console.log("column array is" + column);
+               //  //console.log("---------------");
+               }  
+             }   
+         }
+         console.log("column array is" + column);
+         console.log("----------------------------------------------");
+         console.log("----------------------------------------------");
+     
+   
+     text += "<br>The column array is " + column;
+     text2 += "<br>The entriesarray is " + entries;
+     columns++;
+   }
+   //document.getElementById("demo").innerHTML = text;
+   document.getElementById("demo").innerHTML = text;
+  }
+  //https://www.geeksforgeeks.org/how-to-create-two-dimensional-array-in-javascript/
+</script>
+
+</body>
+</html>
